@@ -1,0 +1,64 @@
+name: Build CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build
+        run: npm run build
+
+      - name: Check for TypeScript errors
+        run: npx tsc --noEmit
+
+      - name: Verify build artifacts
+        run: |
+          if [ ! -f "main.js" ]; then
+            echo "Error: main.js was not generated"
+            exit 1
+          fi
+          echo "Build artifacts verified successfully"
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check code formatting (if applicable)
+        run: |
+          # Add your linting command here if you have ESLint or Prettier configured
+          # Example: npm run lint
+          echo "No linting configured yet"

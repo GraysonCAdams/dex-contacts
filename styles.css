@@ -1,0 +1,1241 @@
+/* Hide Various Complements dropdown when Dex dropdown is active */
+body:has(.suggestion-container .dex-contact-suggestion) .various-complements-suggestion-container,
+body:has(.suggestion-container .suggestion-item .dex-contact-suggestion) .various-complements-suggestion-container {
+  display: none !important;
+}
+
+/* Ensure our dropdown takes priority over Various Complements */
+.suggestion-container:has(.dex-contact-suggestion) {
+  z-index: 10000 !important;
+}
+
+/* ============================================================================
+   DEX COMMENT HIDING (Live Preview Mode ONLY)
+   ============================================================================ */
+   
+/* Hide Dex metadata comments in Live Preview mode only - NOT in Source mode */
+.workspace-leaf-content[data-mode="source"] .is-live-preview .cm-line .dex-hidden-comment,
+.workspace-leaf-content[data-mode="preview"] .cm-line .dex-hidden-comment {
+  display: none;
+}
+
+/* Ensure comments are ALWAYS visible in Source mode (without .is-live-preview) */
+.workspace-leaf-content[data-mode="source"] .cm-line .dex-hidden-comment {
+  display: inline !important;
+}
+
+/* Re-hide in Live Preview to override the source mode rule */
+.workspace-leaf-content[data-mode="source"] .is-live-preview .cm-line .dex-hidden-comment {
+  display: none !important;
+}
+
+/* ============================================================================
+   CONTACT SUGGESTION DROPDOWN
+   ============================================================================ */
+
+/* Dex Contact Suggestion Dropdown */
+.dex-contact-suggestion {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.1s ease;
+  min-height: 32px;
+}
+
+.dex-contact-suggestion:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+.dex-contact-suggestion.is-selected {
+  background-color: var(--background-modifier-active-hover);
+}
+
+.dex-avatar-container {
+  margin-right: 8px;
+  margin-left: 2px;  /* Small left margin */
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.dex-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--background-modifier-border);
+}
+
+.dex-avatar-placeholder {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--interactive-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 9px;
+  line-height: 1;
+}
+
+.dex-text-container {
+  flex: 1;
+  min-width: 0;
+  margin-top: 1px;
+}
+
+.dex-contact-name {
+  font-weight: 400;
+  color: var(--text-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.dex-contact-company {
+  font-size: 0.7em;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+  line-height: 1.1;
+}
+
+/* Sync Buttons */
+.dex-sync-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  margin: 0 4px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  background-color: var(--background-primary);
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.dex-sync-button:hover {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.dex-sync-button.is-synced {
+  background-color: var(--color-green);
+  color: white;
+  cursor: default;
+}
+
+.dex-sync-button.is-synced:hover {
+  background-color: var(--color-green);
+}
+
+.dex-sync-button.is-pending {
+  background-color: var(--color-yellow);
+  color: white;
+  cursor: wait;
+}
+
+.dex-sync-icon {
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+}
+
+/* Plugin Settings - Let Obsidian handle the main container styling */
+.dex-setting-item {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.dex-setting-item:last-child {
+  border-bottom: none;
+}
+
+.dex-setting-name {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.dex-setting-desc {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.dex-api-test {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dex-api-status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.dex-api-status.success {
+  background-color: var(--color-green);
+  color: white;
+}
+
+.dex-api-status.error {
+  background-color: var(--color-red);
+  color: white;
+}
+
+/* Inline API Status Indicators */
+.dex-api-status-inline {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  min-height: 16px;
+  min-width: 16px;
+}
+
+.dex-api-status-inline .dex-api-icon {
+  display: flex;
+  align-items: center;
+  cursor: help;
+}
+
+.dex-api-status-inline.dex-api-testing {
+  opacity: 0.7;
+}
+
+.dex-api-loading svg {
+  color: var(--text-muted);
+}
+
+.dex-api-success .dex-api-icon svg {
+  color: var(--color-green);
+}
+
+.dex-api-error .dex-api-icon svg {
+  color: var(--color-red);
+}
+
+.dex-template-variables {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: var(--background-secondary);
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.dex-template-variables code {
+  background-color: var(--background-primary-alt);
+  padding: 2px 4px;
+  border-radius: 2px;
+  margin: 0 2px;
+}
+
+/* Contact Links */
+.dex-contact-link {
+  color: var(--link-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dex-contact-link:hover {
+  text-decoration: underline;
+}
+
+/* Notifications */
+.dex-notice {
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+}
+
+/* Animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+/* Sync Button States */
+.dex-sync-button.is-error {
+  background-color: var(--color-red);
+  color: white;
+  border-color: var(--color-red);
+}
+
+.dex-sync-button.is-error:hover {
+  background-color: var(--color-red);
+  opacity: 0.9;
+}
+
+/* Contact suggestion improvements */
+.suggestion-container .dex-contact-suggestion {
+  margin: 0;
+}
+
+
+
+/* Loading states */
+.dex-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--background-secondary);
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
+.dex-loading .spinning {
+  width: 16px;
+  height: 16px;
+}
+
+/* Debug Log Viewer */
+.dex-debug-log-container {
+  margin: 15px 0 20px 0;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  background-color: var(--background-secondary);
+  width: 100%;
+}
+
+.dex-debug-header {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  font-size: 0.9em;
+  color: var(--text-muted);
+  background-color: var(--background-primary-alt);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+}
+
+.dex-debug-logs {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 8px 12px;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+}
+
+/* Add visual hint that content is selectable */
+.dex-debug-logs:hover {
+  background-color: var(--background-primary-alt);
+}
+
+.dex-debug-entry:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+/* Better text selection styling */
+.dex-debug-logs ::selection {
+  background-color: var(--interactive-accent);
+  color: white;
+}
+
+/* Attribution section */
+.dex-attribution {
+  margin-top: 10px;
+  padding: 12px 16px;
+  background-color: var(--background-secondary);
+  border-radius: 6px;
+  font-size: 0.95em;
+  color: var(--text-muted);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.dex-attribution a {
+  color: var(--interactive-accent);
+  text-decoration: none;
+}
+
+.dex-attribution a:hover {
+  text-decoration: underline;
+}
+
+/* Dex API link styling */
+.setting-item-description a {
+  color: var(--interactive-accent);
+  text-decoration: none;
+}
+
+.setting-item-description a:hover {
+  color: var(--interactive-accent-hover);
+  text-decoration: underline;
+}
+
+.dex-debug-logs ::-moz-selection {
+  background-color: var(--interactive-accent);
+  color: white;
+}
+
+/* Improve readability when text is selected */
+.dex-debug-entry ::selection {
+  background-color: var(--interactive-accent-hover);
+  color: white;
+}
+
+.dex-debug-entry ::-moz-selection {
+  background-color: var(--interactive-accent-hover);
+  color: white;
+}
+
+.dex-debug-entry {
+  padding: 6px 8px;
+  margin-bottom: 4px;
+  border-radius: 3px;
+  border-left: 3px solid var(--background-modifier-border);
+  font-size: 0.8em;
+  line-height: 1.3;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  cursor: text;
+}
+
+.dex-debug-entry:last-child {
+  margin-bottom: 0;
+}
+
+.dex-debug-info {
+  border-left-color: var(--interactive-accent);
+  background-color: var(--background-primary);
+}
+
+.dex-debug-error {
+  border-left-color: var(--color-red);
+  background-color: var(--background-primary);
+}
+
+.dex-debug-api {
+  border-left-color: var(--color-blue);
+  background-color: var(--background-primary);
+}
+
+.dex-debug-debug {
+  border-left-color: var(--color-yellow);
+  background-color: var(--background-primary);
+}
+
+.dex-debug-timestamp {
+  display: inline-block;
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin-right: 8px;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  cursor: text;
+}
+
+.dex-debug-level {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 0.75em;
+  margin-right: 8px;
+  min-width: 50px;
+  text-align: center;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+}
+
+.dex-debug-info .dex-debug-level {
+  background-color: var(--interactive-accent);
+  color: white;
+}
+
+.dex-debug-error .dex-debug-level {
+  background-color: var(--color-red);
+  color: white;
+}
+
+.dex-debug-api .dex-debug-level {
+  background-color: var(--color-blue);
+  color: white;
+}
+
+.dex-debug-debug .dex-debug-level {
+  background-color: var(--color-yellow);
+  color: var(--text-on-accent);
+}
+
+.dex-debug-message {
+  margin-top: 2px;
+  color: var(--text-normal);
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  cursor: text;
+}
+
+.dex-debug-details {
+  margin-top: 4px;
+  padding: 4px 8px;
+  background-color: var(--background-modifier-hover);
+  border-radius: 2px;
+  font-family: var(--font-monospace);
+  font-size: 0.75em;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  word-break: break-all;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  cursor: text;
+}
+
+.dex-debug-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.5;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  cursor: text;
+}
+
+.dex-debug-last-update {
+  font-size: 0.85em;
+  opacity: 0.8;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  cursor: text;
+}
+
+.dex-debug-hint {
+  font-size: 0.75em;
+  color: var(--text-muted);
+  opacity: 0.7;
+  margin-left: 8px;
+  font-style: italic;
+}
+
+/* Legacy sync panel styles removed - now using inline CodeMirror buttons */
+
+/* Inline Sync Button */
+.dex-inline-sync-button {
+  display: inline-block;
+  margin-left: 6px;
+  vertical-align: top;
+  position: relative;
+  top: 1px;
+}
+
+.dex-inline-sync-button .dex-sync-btn {
+  background: none;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 3px;
+  padding: 2px 4px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 10px;
+  line-height: 1;
+  transition: all 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 16px;
+  background-color: var(--background-primary);
+}
+
+.dex-inline-sync-button .dex-sync-btn:hover {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-normal);
+  border-color: var(--interactive-accent);
+}
+
+.dex-inline-sync-button .dex-sync-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.dex-inline-sync-button .dex-sync-btn svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* CodeMirror 6 Inline Sync Buttons */
+.dex-inline-sync-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 8px;
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 1;
+  background: var(--background-modifier-border);
+  color: var(--text-muted);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  vertical-align: baseline;
+  position: relative;
+  top: -1px;
+}
+
+
+
+.dex-inline-sync-btn:hover {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  transform: translateY(-1px);
+}
+
+.dex-inline-sync-btn.is-syncing {
+  background: var(--color-yellow);
+  color: white;
+  cursor: wait;
+  animation: pulse 1.5s infinite;
+}
+
+.dex-inline-sync-btn.is-synced {
+  background: var(--color-green);
+  color: white;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dex-inline-sync-btn.is-synced.is-minimal {
+  background: transparent;
+  color: var(--color-green);
+  border: none;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.7;
+  cursor: pointer; /* Changed from not-allowed */
+  pointer-events: auto; /* Changed from none */
+}
+
+.dex-inline-sync-btn.is-synced.is-minimal.is-clickable {
+  text-decoration: none;
+  transition: all 0.1s ease;
+}
+
+.dex-inline-sync-btn.is-synced.is-minimal.is-clickable:hover {
+  background: transparent;
+  color: var(--link-color);
+  text-decoration: underline;
+  opacity: 1;
+  transform: none;
+}
+
+.dex-inline-sync-btn.is-synced.is-minimal:hover {
+  background: transparent;
+  color: var(--color-green);
+  transform: none;
+  opacity: 0.9;
+}
+
+.dex-inline-sync-btn.is-error {
+  background: var(--color-red);
+  color: white;
+  cursor: pointer;
+}
+
+.dex-inline-sync-btn.needs-resync {
+  background: var(--color-orange);
+  color: white;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+
+.dex-inline-sync-btn.needs-resync:hover {
+  background: var(--color-orange);
+  transform: scale(1.05);
+}
+
+.dex-inline-sync-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.dex-sync-icon {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.dex-sync-text {
+  font-weight: 500;
+}
+
+/* Pulsing animation for syncing state */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Dark theme adjustments */
+.theme-dark .dex-inline-sync-btn {
+  background: var(--background-modifier-border);
+}
+
+.theme-dark .dex-inline-sync-btn:hover {
+  background: var(--interactive-accent);
+}
+
+/* Memo ID superscript styling - visually hidden but still functional */
+sup.dex-memo-id {
+  display: none;
+  font-size: 0px;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Hidden contact ID spans */
+.dex-contact-id {
+  display: none !important;
+}
+
+/* Status bar styling */
+.status-bar-item.plugin-dex-contacts {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 0 8px;
+  cursor: default;
+}
+
+.status-bar-item.plugin-dex-contacts:hover {
+  color: var(--text-normal);
+}
+
+/* Buy Me Coffee Button Styling */
+.setting-item .setting-item-control button[data-tooltip*="Buy Me Coffee"],
+.setting-item .setting-item-control button[class*="cta"] {
+  background: linear-gradient(135deg, #FF813F, #FF6B35);
+  color: white;
+  border: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(255, 129, 63, 0.3);
+}
+
+.setting-item .setting-item-control button[data-tooltip*="Buy Me Coffee"]:hover,
+.setting-item .setting-item-control button[class*="cta"]:hover {
+  background: linear-gradient(135deg, #FF6B35, #FF5722);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 129, 63, 0.4);
+}
+
+/* Settings section headers - ensure no double underlines */
+.setting-tab-content h3 {
+  color: var(--text-normal);
+  border-bottom: 1px solid var(--background-modifier-border) !important;
+  padding-bottom: 8px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 500;
+  font-size: 1.1em;
+  text-decoration: none !important;
+}
+
+.setting-tab-content h3:first-of-type {
+  margin-top: 16px;
+}
+
+/* Template Variable Auto-Suggest - Compact Design */
+.dex-template-suggestions {
+  position: fixed;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  max-height: 150px;
+  overflow-y: auto;
+  min-width: 180px;
+  max-width: 220px;
+  z-index: 1000;
+  font-size: 12px;
+}
+
+.dex-suggestion-item {
+  padding: 6px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--background-modifier-border-hover);
+  transition: background-color 0.1s ease;
+}
+
+.dex-suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.dex-suggestion-item:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+.dex-suggestion-item div:first-child {
+  font-weight: 500;
+  color: var(--text-normal);
+  font-family: var(--font-monospace);
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.dex-suggestion-item div:last-child {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 1px;
+  line-height: 1.1;
+}
+
+/* Add to Dex Suggestion Styling */
+.dex-add-to-dex-suggestion {
+  background: var(--background-modifier-hover-active) !important;
+  border-left: 3px solid var(--interactive-accent) !important;
+}
+
+.dex-add-to-dex-suggestion:hover {
+  background: var(--background-modifier-border-focus) !important;
+}
+
+.dex-add-to-dex-text {
+  color: var(--interactive-accent) !important;
+  font-weight: 500 !important;
+}
+
+/* Contact Creation Modal */
+.dex-contact-creation-modal .modal-content {
+  max-width: 500px;
+  width: 90%;
+}
+
+.dex-form-container .setting-item {
+  border: none;
+  padding: 8px 0;
+}
+
+.dex-form-container .setting-item-info {
+  flex-grow: 1;
+}
+
+.dex-form-container .setting-item-control {
+  flex-shrink: 0;
+  min-width: 200px;
+}
+
+.dex-button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.dex-button-container button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 80px;
+}
+
+/* Cancel button styling */
+.dex-button-container button:first-child {
+  background-color: var(--interactive-normal) !important;
+  color: var(--text-normal) !important;
+  border-color: var(--background-modifier-border);
+}
+
+.dex-button-container button:first-child:hover {
+  background-color: var(--interactive-hover) !important;
+  color: var(--text-normal) !important;
+  border-color: var(--background-modifier-border-hover);
+}
+
+/* Create/primary button styling */
+.dex-button-container button:last-child {
+  background-color: var(--interactive-accent) !important;
+  color: var(--text-on-accent) !important;
+  border-color: var(--interactive-accent);
+}
+
+.dex-button-container button:last-child:hover {
+  background-color: var(--interactive-accent-hover) !important;
+  color: var(--text-on-accent) !important;
+  border-color: var(--interactive-accent-hover);
+}
+
+.dex-button-container button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Contact Hover Card */
+.dex-hover-card {
+  position: fixed;
+  z-index: 10000;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  max-width: 280px;
+  min-width: 220px;
+  font-size: 13px;
+  overflow: hidden;
+  animation: dex-hover-card-appear 0.15s ease-out;
+  padding: 0;
+}
+
+@keyframes dex-hover-card-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dex-hover-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  margin: -1px -1px 0 -1px;
+  border-radius: 8px 8px 0 0;
+}
+
+.dex-hover-avatar-container {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.dex-hover-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--background-modifier-border);
+}
+
+.dex-hover-avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--interactive-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  border: 2px solid var(--background-modifier-border);
+}
+
+.dex-hover-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dex-hover-name {
+  font-weight: 600;
+  color: var(--text-normal);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.dex-hover-company {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.dex-hover-details {
+  padding: 12px 16px;
+}
+
+.dex-hover-detail-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  gap: 10px;
+}
+
+.dex-hover-detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.dex-hover-detail-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  stroke: currentColor;
+}
+
+.dex-hover-detail-value {
+  color: var(--text-normal);
+  font-size: 12px;
+  flex: 1;
+  word-break: break-word;
+}
+
+.dex-hover-email-link {
+  color: var(--interactive-accent);
+  text-decoration: none;
+}
+
+.dex-hover-email-link:hover {
+  text-decoration: underline;
+}
+
+.dex-hover-phone-link {
+  color: var(--interactive-accent);
+  text-decoration: none;
+}
+
+.dex-hover-phone-link:hover {
+  text-decoration: underline;
+}
+
+.dex-hover-social-link {
+  color: var(--interactive-accent);
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.dex-hover-social-link:hover {
+  text-decoration: underline;
+}
+
+.dex-hover-detail-id {
+  opacity: 0.7;
+  font-family: var(--font-monospace);
+}
+
+.dex-hover-info-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 8px;
+  padding: 6px 8px;
+  background: var(--background-secondary);
+  border-radius: 4px;
+}
+
+.dex-hover-card-fallback {
+  border-left: 3px solid var(--text-error);
+}
+
+.dex-hover-avatar-unknown {
+  background: var(--text-error) !important;
+  color: white;
+  font-weight: bold;
+}
+
+.dex-hover-error {
+  color: var(--text-error) !important;
+}
+
+.dex-hover-error-note {
+  background: var(--background-modifier-error);
+  color: var(--text-error);
+  border: 1px solid var(--text-error);
+}
+
+.dex-hover-refresh-btn {
+  background: var(--interactive-accent);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.dex-hover-refresh-btn:hover {
+  background: var(--interactive-accent-hover);
+}
+
+.dex-hover-button-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dex-hover-add-contact-btn {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.dex-hover-add-contact-btn:hover {
+  background: var(--interactive-accent-hover);
+}
+
+.dex-hover-card-fallback .dex-hover-info-note {
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.dex-hover-actions {
+  padding: 16px;
+  border-top: 1px solid var(--background-modifier-border);
+  background: var(--background-primary-alt);
+  display: flex;
+  gap: 8px;
+  margin: 0 -1px -1px -1px;
+  border-radius: 0 0 8px 8px;
+}
+
+.dex-hover-action-btn {
+  flex: 1;
+  padding: 6px 12px;
+  border: 1px solid var(--interactive-accent);
+  background: transparent;
+  color: var(--interactive-accent);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dex-hover-action-btn:hover {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.dex-hover-view-profile {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.dex-hover-view-profile:hover {
+  background: var(--interactive-accent-hover);
+}
+
+/* Dark theme adjustments */
+.theme-dark .dex-hover-card {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Contact Card Fields Settings */
+.dex-subsetting {
+  padding-left: 24px;
+  border-left: 2px solid var(--background-modifier-border);
+  margin-left: 12px;
+}
+
+.dex-contact-card-fields {
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--background-secondary);
+  border-radius: 6px;
+  border: 1px solid var(--background-modifier-border);
+}
+
+.dex-field-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.dex-field-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: move;
+}
+
+.dex-field-item:hover {
+  background: var(--background-primary-alt);
+  border-color: var(--interactive-accent);
+}
+
+.dex-field-item.dragging {
+  opacity: 0.5;
+}
+
+.dex-field-item.disabled {
+  opacity: 0.5;
+}
+
+.dex-field-item.disabled .dex-field-label {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.dex-field-drag-handle {
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: grab;
+  user-select: none;
+  line-height: 1;
+}
+
+.dex-field-drag-handle:active {
+  cursor: grabbing;
+}
+
+.dex-field-item input[type="checkbox"] {
+  cursor: pointer;
+  margin: 0;
+}
+
+.dex-field-label {
+  flex: 1;
+  font-size: 14px;
+  user-select: none;
+}
