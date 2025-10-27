@@ -165,7 +165,6 @@ Customize how your memos appear in Dex using template variables:
 ---
 📅 {{date}}
 🔗 [View in Obsidian]({{obsidian_uri}})
-{{#header}}📋 Section: {{header}}{{/header}}
 ```
 
 ### Available Variables
@@ -252,7 +251,6 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 ## 📚 Resources
 
 - 📖 [Dex API Documentation](https://docs.getdex.com)
-- 💬 [Dex Community Slack](https://join.slack.com/t/dex-community/shared_invite/zt-2ipft5dp3-c4Uh_I3r6MMSzynp1KlnrA)
 - 🐛 [Report Issues](https://github.com/GraysonCAdams/dex-contacts/issues)
 - 🚀 [Feature Requests](https://github.com/GraysonCAdams/dex-contacts/issues/new)
 - 📦 [Releases](https://github.com/GraysonCAdams/dex-contacts/releases)
@@ -264,11 +262,6 @@ MIT License - see [LICENSE](LICENSE) for details.
 ## 🎯 Roadmap
 
 - [ ] Bi-directional sync (Dex → Obsidian)
-- [ ] Contact creation from Obsidian
-- [ ] Tag synchronization
-- [ ] Advanced filtering and search
-- [ ] Bulk contact operations
-- [ ] Integration with Dataview queries
 
 ## 📈 Changelog
 
