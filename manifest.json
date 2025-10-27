@@ -1,6 +1,6 @@
 {
 	"id": "dex-contacts",
-	"name": "Dex Contacts",
+	"name": "Dex Contacts (Community)",
 	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
 	"description": "Integrate with GetDex.com to sync contact mentions as memos with intelligent change detection and status tracking",
