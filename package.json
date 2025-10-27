@@ -1,6 +1,6 @@
 {
   "name": "dex-contacts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Obsidian plugin for GetDex.com integration",
   "main": "main.js",
   "scripts": {
