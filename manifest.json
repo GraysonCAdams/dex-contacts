@@ -1,7 +1,7 @@
 {
 	"id": "dex-contacts",
 	"name": "Dex Contacts (Community)",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"minAppVersion": "0.15.0",
 	"description": "Integrate with GetDex.com to sync contact mentions as memos with intelligent change detection and status tracking.",
 	"author": "Gray Adams",
