@@ -284,6 +284,11 @@ function createSyncButtonDecorations(view: EditorView, plugin: DexContactsPlugin
 	const doc = view.state.doc;
 	const syncStates = view.state.field(syncButtonStates);
 	
+	// Get the line where the cursor is currently positioned
+	// Hide sync buttons on this line to allow iOS double-space autocorrect to work
+	const cursorPos = view.state.selection.main.head;
+	const cursorLine = doc.lineAt(cursorPos).number;
+	
 	// Regex patterns for contact mentions and memo IDs imported from constants
 	const processedLines = new Set<number>(); // Track lines we've already processed
 	const decorationPositions = new Set<number>(); // Track decoration positions to prevent duplicates
@@ -379,6 +384,26 @@ function createSyncButtonDecorations(view: EditorView, plugin: DexContactsPlugin
 			const contentBlock = findContentBlockEnd(doc, lineNum);
 			const syncState = syncStates[lineNum] || 'idle';
 			
+			// Check if the cursor is within this content block
+			// If so, skip the decoration to allow iOS double-space autocorrect to work
+			const cursorInContentBlock = cursorLine >= lineNum && cursorLine <= contentBlock.endLine;
+			
+			if (cursorInContentBlock) {
+				logger?.logDebug('Skipping sync button (cursor in content block)', {
+					lineNum,
+					contentBlockStart: lineNum,
+					contentBlockEnd: contentBlock.endLine,
+					cursorLine
+				});
+				
+				// Mark all lines in this content block as processed
+				for (let i = lineNum; i <= contentBlock.endLine; i++) {
+					processedLines.add(i);
+				}
+				
+				continue; // Skip creating decoration for this content block
+			}
+			
 			logger?.logDebug('Creating sync button decoration', {
 				lineNum,
 				contentBlockStart: lineNum,
@@ -440,7 +465,15 @@ export const createSyncButtonExtension = (plugin: DexContactsPlugin) => [
 			}
 
 			update(update: ViewUpdate) {
-				if (update.docChanged || update.viewportChanged || update.state.field(syncButtonStates) !== update.startState.field(syncButtonStates)) {
+				// Recreate decorations if:
+				// 1. Document changed
+				// 2. Viewport changed
+				// 3. Sync button states changed
+				// 4. Selection changed (cursor moved) - for iOS double-space support
+				if (update.docChanged || 
+					update.viewportChanged || 
+					update.selectionSet ||
+					update.state.field(syncButtonStates) !== update.startState.field(syncButtonStates)) {
 					this.decorations = createSyncButtonDecorations(update.view, plugin);
 				}
 			}
