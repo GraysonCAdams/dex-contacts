@@ -46,6 +46,18 @@ class SyncButtonWidget extends WidgetType {
 	}
 
 	toDOM(view: EditorView): HTMLElement {
+		// Create a wrapper span that includes spacing for iOS compatibility
+		const wrapper = document.createElement('span');
+		wrapper.className = 'dex-sync-btn-wrapper';
+		
+		// Add invisible spacing before button to help iOS recognize end-of-line
+		// This allows double-space period insertion to work properly
+		const spacer = document.createElement('span');
+		spacer.className = 'dex-btn-spacer';
+		spacer.textContent = '\u00a0'; // Non-breaking space
+		spacer.setAttribute('aria-hidden', 'true');
+		wrapper.appendChild(spacer);
+		
 		// Always use a single sync button regardless of memo status
 		const button = document.createElement('button');
 		button.className = 'dex-inline-sync-btn';
@@ -65,7 +77,8 @@ class SyncButtonWidget extends WidgetType {
 			}
 		});
 
-		return button;
+		wrapper.appendChild(button);
+		return wrapper;
 	}
 
 	private updateButtonAppearance(button: HTMLElement) {
@@ -402,10 +415,6 @@ function createSyncButtonDecorations(view: EditorView, plugin: DexContactsPlugin
 			};
 			
 			const widget = new SyncButtonWidget(mentionInfo, plugin);
-			const decoration = Decoration.widget({
-				widget,
-				side: 1
-			});
 			
 			// Place the button at the end of the content block, not just the first line
 			const endLine = doc.line(contentBlock.endLine);
@@ -413,6 +422,13 @@ function createSyncButtonDecorations(view: EditorView, plugin: DexContactsPlugin
 			
 			// Only add this decoration if we haven't already placed one at this position
 			if (!decorationPositions.has(decorationPos)) {
+				// Add the widget with side: 1 (after the position)
+				const decoration = Decoration.widget({
+					widget,
+					side: 1,
+					block: false,
+				});
+				
 				decorations.push(decoration.range(decorationPos));
 				decorationPositions.add(decorationPos);
 				logger?.logDebug('Added decoration at position', { decorationPos, lineNum: contentBlock.endLine });

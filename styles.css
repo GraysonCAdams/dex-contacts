@@ -583,6 +583,22 @@ body:has(.suggestion-container .suggestion-item .dex-contact-suggestion) .variou
 }
 
 /* CodeMirror 6 Inline Sync Buttons */
+
+/* Wrapper for sync button with iOS-compatible spacing */
+.dex-sync-btn-wrapper {
+  display: inline;
+  white-space: nowrap;
+}
+
+/* Spacer to help iOS recognize end-of-line for double-space period insertion */
+.dex-btn-spacer {
+  display: inline;
+  font-size: 0;
+  line-height: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
 .dex-inline-sync-btn {
   display: inline-flex;
   align-items: center;
@@ -600,6 +616,23 @@ body:has(.suggestion-container .suggestion-item .dex-contact-suggestion) .variou
   vertical-align: baseline;
   position: relative;
   top: -1px;
+  /* Prevent button from interfering with text input on mobile */
+  pointer-events: auto;
+}
+
+/* iOS/Mobile: Add extra spacing and prevent interference with text editing */
+@media (hover: none) and (pointer: coarse) {
+  .dex-inline-sync-btn {
+    margin-left: 16px; /* More spacing on mobile */
+    /* Make button appear more detached from text flow */
+    white-space: pre; /* Treat surrounding space as significant */
+  }
+  
+  .dex-inline-sync-btn::before {
+    content: '';
+    display: inline-block;
+    width: 8px; /* Extra invisible spacing */
+  }
 }
 
 
